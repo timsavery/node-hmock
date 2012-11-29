@@ -6,6 +6,8 @@ var http = require('http')
  * hmock
  */
 function hmock() {
+	var self = this;
+
 	// hold the mocked requests
 	http._mocks = {
 			get: {}
@@ -42,7 +44,7 @@ function hmock() {
 	 * @api public
 	 */
 	this.get = function(url, res) {
-		addMock('GET', url, res);
+		self.mock('GET', url, res);
 	};
 
 	/**
@@ -53,7 +55,7 @@ function hmock() {
 	 * @api public
 	 */
 	this.post = function(url, res) {
-		addMock('POST', url, res);
+		self.mock('POST', url, res);
 	};
 
 	/**
