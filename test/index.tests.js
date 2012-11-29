@@ -27,7 +27,6 @@ function MyClass() {
 };
 
 describe('MyClass', function() {
-  
   describe('#getSomething', function() {
     it('should make a GET request and get a response', function(done) {
       var expectedResponse = { ok: true };
@@ -59,5 +58,4 @@ describe('MyClass', function() {
       });
     });
   });
-
 });

@@ -1,5 +1,6 @@
-`node-hmock`: Very simple http request/response mocking for Node.JS
-===================================================================
+`node-hmock`
+
+Very simple http request/response mocking for Node.JS
 
 [![Build Status](https://secure.travis-ci.org/timsavery/node-hmock.png)](http://travis-ci.org/timsavery/node-hmock)
 
