@@ -1,4 +1,5 @@
-var http = require('http')
+var url = require('url')
+	, http = require('http')
 	, MockedRequest = require('./lib/MockedRequest')
 	, MockedResponse = require('./lib/MockedResponse');
 
@@ -26,8 +27,16 @@ function hmock() {
 	 * 						 to be used during unit testing anyway.
 	 */
 	http.request = function(options, callback) {
-		var href = options.href.toLowerCase()
-			, method = options.method.toLowerCase();
+		if (typeof options === 'string') {
+			options = url.parse(options);
+		}
+
+		var hostname = ((options.hostname || options.host) || 'localhost').toLowerCase()
+			, port = options.port || 80
+			, path = options.path || '/'
+			, method = (options.method ? options.method.toLowerCase() : 'get');
+
+		var href = 'http://'.concat(hostname).concat(':').concat(port).concat(path);
 
 		if (http._mocks[method] && http._mocks[method][href]) {
 			return new MockedRequest(http._mocks[method][href], callback);
