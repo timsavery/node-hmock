@@ -18,6 +18,9 @@ function MyClass() {
   	var options = {
 	  		json: { key: 'value' }
   		, url: 'http://somewhere:3000/out/there'
+      , headers: {
+          'X-Custom': 'value'
+        }
   	};
 
     request.post(options, function(err, res, body) {
@@ -55,6 +58,7 @@ describe('MyClass', function() {
       // setup http expectations
       hmock.expect()
         .post('http://somewhere:3000/out/there')
+        .withHeader('X-Custom', 'value')
         .withBody({ key: 'value' })
         .respond(expectedResponse);
 

@@ -57,6 +57,9 @@ function MyClass() {
       , port: 3000
       , path: '/out/there'
       , method: 'POST'
+      , headers: {
+          'X-Custom': 'value'
+        }
     };
 
     var req = http.request(options, function(res) {
@@ -110,6 +113,7 @@ describe('MyClass', function() {
       // setup http expectations
       hmock.expect()
         .post('http://somewhere:3000/out/there')
+        .withHeader('X-Custom', 'value')
         .withBody({ key: 'value' })
         .respond(expectedResponse);
 
