@@ -7,11 +7,6 @@ describe('hmock', function() {
 		hmock.reset();
 	});
 
-	it('should create a "_expectations" property on the http module', function() {
-		expect(http._expectations).to.be.an.instanceof(Array);
-		expect(http._expectations.length).to.equal(0);
-	});
-
 	it('should set the original request function to a "_request" property on the http module', function() {
 		expect(typeof http._request).to.equal('function');
 	});
@@ -21,18 +16,6 @@ describe('hmock', function() {
 			var e = hmock.expect();
 
 			expect(e).to.be.an.instanceof(hmock.RequestExpectation);
-		});
-	});
-
-	describe('#reset()', function() {
-		it('should clear the expectations array when called', function() {
-			hmock.expect();
-
-			expect(http._expectations.length).to.equal(1);
-
-			hmock.reset();
-
-			expect(http._expectations.length).to.equal(0);
 		});
 	});
 
