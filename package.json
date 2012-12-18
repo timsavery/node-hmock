@@ -34,7 +34,6 @@
     "bdd"
   ],
   "dependencies": {
-    "deep-equal": "0.0.0",
-    "winston": "~0.6.2"
+    "deep-equal": "0.0.0"
   }
 }
