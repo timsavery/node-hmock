@@ -3,10 +3,6 @@ var http = require('http')
 	, expect = require('chai').expect;
 
 describe('hmock', function() {
-	beforeEach(function() {
-		hmock.reset();
-	});
-
 	it('should set the original request function to a "_request" property on the http module', function() {
 		expect(typeof http._request).to.equal('function');
 	});
