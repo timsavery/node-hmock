@@ -29,24 +29,6 @@ function MyClass() {
       callback(err, body);
     });
   };
-
-  this.postSomethingTwice = function(callback) {
-    var results = [];
-
-    self.postSomething(function(err, result) {
-      if (err) return callback(err);
-
-      results.push(result);
-
-      self.postSomething(function(err, result) {
-        if (err) return callback(err);
-
-        results.push(result);
-
-        callback(err, results);
-      });
-    });
-  };
 };
 
 describe('hmock.request', function() {
@@ -89,29 +71,6 @@ describe('hmock.request', function() {
         expect(result).to.deep.equal(expectedResponse);
 
         // verify http expectations
-        hmock.verifyExpectations();
-
-        done();
-      });
-    });
-  });
-
-  describe('#postSomethingTwice', function() {
-    it('should make two POST requests and get two responses', function(done) {
-      var expectedResponse = { ok: true };
-
-      hmock.expect()
-        .post('http://somewhere:3000/out/there')
-        .withHeader('X-Custom', 'value')
-        .withBody({ key: 'value' })
-        .times(2)
-        .respond()
-        .withBody(expectedResponse);
-
-      new MyClass().postSomethingTwice(function(err, result) {
-        expect(err).to.be.null;
-        expect(result).to.deep.equal([expectedResponse, expectedResponse]);
-
         hmock.verifyExpectations();
 
         done();

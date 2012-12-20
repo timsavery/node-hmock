@@ -11,7 +11,7 @@ test-unit:
 test-cov: lib-cov
 	@HMOCK_COV=1 $(MAKE) test REPORTER=html-cov > coverage.html
 
-lib-cov:
+lib-cov: clean
 	@jscoverage lib lib-cov
 
 clean:

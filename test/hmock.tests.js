@@ -7,8 +7,10 @@ var RequestExpectation = (process.env.HMOCK_COV)
   : require('../lib/requestExpectation');
 
 describe('hmock', function() {
-	it('should set the original request function to a "_request" property on the http module', function() {
-		expect(typeof http._request).to.equal('function');
+	describe('#()', function() {
+		it('should set the original request function to a "_request" property on the http module', function() {
+			expect(http._request).to.be.defined;
+		});
 	});
 
 	describe('#expect()', function() {
