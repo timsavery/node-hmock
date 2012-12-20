@@ -49,7 +49,7 @@ function MyClass() {
   };
 };
 
-describe('hmock', function() {
+describe('hmock.request', function() {
   describe('#getSomething', function() {
     it('should make a GET request and get a response', function(done) {
       var expectedResponse = { ok: true };
@@ -57,7 +57,8 @@ describe('hmock', function() {
       // setup http expectations
       hmock.expect()
         .get('http://somewhere:3000/out/there')
-        .respond(expectedResponse);
+        .respond()
+        .withBody(expectedResponse);
 
       new MyClass().getSomething(function(err, result) {
       	expect(err).to.be.null;
@@ -80,7 +81,8 @@ describe('hmock', function() {
         .post('http://somewhere:3000/out/there')
         .withHeader('X-Custom', 'value')
         .withBody({ key: 'value' })
-        .respond(expectedResponse);
+        .respond()
+        .withBody(expectedResponse);
 
       new MyClass().postSomething(function(err, result) {
       	expect(err).to.be.null;
@@ -102,8 +104,9 @@ describe('hmock', function() {
         .post('http://somewhere:3000/out/there')
         .withHeader('X-Custom', 'value')
         .withBody({ key: 'value' })
-        .respond(expectedResponse)
-        .twice();
+        .times(2)
+        .respond()
+        .withBody(expectedResponse);
 
       new MyClass().postSomethingTwice(function(err, result) {
         expect(err).to.be.null;

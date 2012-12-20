@@ -1,12 +1,12 @@
 
-REPORTER= dot
+REPORTER= spec
 
 check: test
 
 test: test-unit
 
 test-unit:
-	@NODE_ENV=test ./node_modules/.bin/mocha --reporter $(REPORTER)
+	@NODE_ENV=test ./node_modules/.bin/mocha --reporter $(REPORTER) --recursive
 
 test-cov: lib-cov
 	@HMOCK_COV=1 $(MAKE) test REPORTER=html-cov > coverage.html

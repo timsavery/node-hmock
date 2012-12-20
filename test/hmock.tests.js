@@ -2,6 +2,10 @@ var http = require('http')
 	, hmock = require('../index')
 	, expect = require('chai').expect;
 
+var RequestExpectation = (process.env.HMOCK_COV) 
+  ? require('../lib-cov/requestExpectation')
+  : require('../lib/requestExpectation');
+
 describe('hmock', function() {
 	it('should set the original request function to a "_request" property on the http module', function() {
 		expect(typeof http._request).to.equal('function');
@@ -11,7 +15,7 @@ describe('hmock', function() {
 		it('should return a new RequestException instance', function() {
 			var e = hmock.expect();
 
-			expect(e).to.be.an.instanceof(hmock.RequestExpectation);
+			expect(e).to.be.an.instanceof(RequestExpectation);
 		});
 	});
 

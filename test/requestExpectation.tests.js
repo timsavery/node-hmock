@@ -1,9 +1,17 @@
 var hmock = require('../index')
-	, expect = require('chai').expect;
+    expect = require('chai').expect;
+
+var ResponseExpectation = (process.env.HMOCK_COV) 
+  ? require('../lib-cov/responseExpectation')
+  : require('../lib/responseExpectation');
+
+var RequestExpectation = (process.env.HMOCK_COV) 
+  ? require('../lib-cov/requestExpectation')
+  : require('../lib/requestExpectation');
 
 describe('RequestExpectation', function() {
 	describe('#()', function() {
-		var e = new hmock.RequestExpectation();
+		var e = new RequestExpectation();
 
 		it('expected times should equal one', function() {
 			expect(e.getExpectedTimes()).to.equal(1);
@@ -14,45 +22,22 @@ describe('RequestExpectation', function() {
 		});
   });
 
-  describe('#once()', function() {
-  	it('should set the expected time to one', function() {
-  		var e = new hmock.RequestExpectation();
-  		e.once();
-
-  		expect(e.getExpectedTimes()).to.be.equal(1);
-  	});
-  });
-
-  describe('#twice()', function() {
-  	it('should set the expected times to two', function() {
-  		var e = new hmock.RequestExpectation();
-  		e.twice();
-
-  		expect(e.getExpectedTimes()).to.be.equal(2);
-  	});
-  });
-
-  describe('#thrice()', function() {
-  	it('should set the expected times to three', function() {
-  		var e = new hmock.RequestExpectation();
-  		e.thrice();
-
-  		expect(e.getExpectedTimes()).to.be.equal(3);
-  	});
-  });
-
   describe('#times(num)', function() {
-  	it('should set the expected times to the specified number', function() {
-  		var e = new hmock.RequestExpectation();
-  		e.times(5);
+    var e = new RequestExpectation(),
+        result = e.times(5);
 
+  	it('should set the expected times to the specified number', function() {
   		expect(e.getExpectedTimes()).to.be.equal(5);
   	});
+
+    it('should return a reference to itself', function() {
+      expect(result).to.equal(e);
+    });
   });
 
   describe('#touch()', function() {
   	it('should increment the actual times the expectation was met', function() {
-  		var e = new hmock.RequestExpectation();
+  		var e = new RequestExpectation();
 
   		expect(e.getActualTimes()).to.be.equal(0);
 
@@ -63,7 +48,7 @@ describe('RequestExpectation', function() {
   });
 
   describe('#isSatisfied()', function() {
-  	var e = new hmock.RequestExpectation();
+  	var e = new RequestExpectation();
 
   	it('should return false when expected times does not equal actual times', function() {
   		expect(e.isSatisfied()).to.be.false;
@@ -77,8 +62,9 @@ describe('RequestExpectation', function() {
   });
 
   describe('#get(href)', function() {
-  	var href = 'http://localhost:3000'
-  		, e = new hmock.RequestExpectation().get(href);
+  	var href = 'http://localhost:3000',
+  		  e = new RequestExpectation(),
+        result = e.get(href);
 
   	it('should set the method', function() {
   		expect(e.getMethod()).to.equal('GET');
@@ -87,11 +73,16 @@ describe('RequestExpectation', function() {
   	it('should set the href', function() {
   		expect(e.getHref()).to.equal(href);
   	});
+
+    it('should return a reference to itself', function() {
+      expect(result).to.equal(e);
+    });
   });
 
   describe('#post(href)', function() {
-  	var href = 'http://localhost:3000'
-  		, e = new hmock.RequestExpectation().post(href);
+  	var href = 'http://localhost:3000',
+    		e = new RequestExpectation(),
+        result = e.post(href);
 
   	it('should set the method', function() {
   		expect(e.getMethod()).to.equal('POST');
@@ -100,24 +91,34 @@ describe('RequestExpectation', function() {
   	it('should set the href', function() {
   		expect(e.getHref()).to.equal(href);
   	});
+
+    it('should return a reference to itself', function() {
+      expect(result).to.equal(e);
+    });
   });
 
-  describe('#withHeader', function() {
-  	var key = 'key'
-  		, value = 'value'
-  		, e = new hmock.RequestExpectation().withHeader(key, value);
+  describe('#withHeader(key, value)', function() {
+  	var key = 'key',
+  		  value = 'value',
+  		  e = new RequestExpectation(),
+        result = e.withHeader(key, value);
 
   	it('should create a new property on the headers object', function() {
   		expect(e.getHeaders()[key]).to.equal(value);
   	});
+
+    it('should return a reference to itself', function() {
+      expect(result).to.equal(e);
+    });
   });
 
-  describe('#withHeaders', function() {
-  	var key1 = 'key1'
-  		, value1 = 'value1'
-  		, key2 = 'key2'
-  		, value2 = 'value2'
-  		, e = new hmock.RequestExpectation().withHeaders({
+  describe('#withHeaders(pairs)', function() {
+  	var key1 = 'key1',
+  		  value1 = 'value1',
+  		  key2 = 'key2',
+  		  value2 = 'value2',
+  		  e = new RequestExpectation(),
+        result = e.withHeaders({
   					key1: value1
   				, key2: value2
   			});
@@ -126,27 +127,33 @@ describe('RequestExpectation', function() {
   		expect(e.getHeaders()[key1]).to.be.equal(value1);
   		expect(e.getHeaders()[key2]).to.be.equal(value2);
   	});
+
+    it('should return a reference to itself', function() {
+      expect(result).to.equal(e);
+    });
   });
 
-  describe('#withBody', function() {
+  describe('#withBody(data)', function() {
   	var body = {
 	  			key: 'value'
-	  		}
-	  	,	e = new hmock.RequestExpectation().withBody(body);
+	  		},
+	  	  e = new RequestExpectation(),
+        result = e.withBody(body);
 
 	  it('should set the body', function() {
 	  	expect(e.getBody()).to.deep.equal(body);
 	  });
+
+    it('should return a reference to itself', function() {
+      expect(result).to.equal(e);
+    });
   });
 
-  describe('#respond', function() {
-  	var response = {
-		  		ok: true
-		  	}
-		  , e = new hmock.RequestExpectation().respond(response);
+  describe('#respond()', function() {
+  	var r = new RequestExpectation().respond();
 
 		it('should set the response', function() {
-			expect(e.getResponse()).to.deep.equal(response);
+			expect(r).to.be.an.instanceof(ResponseExpectation);
 		});
   });
 });
