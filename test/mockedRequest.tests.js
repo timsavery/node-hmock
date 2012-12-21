@@ -5,6 +5,10 @@ var MockedRequest = (process.env.HMOCK_COV)
   ? require('../lib-cov/mockedRequest')
   : require('../lib/mockedRequest');
 
+var MockedResponse = (process.env.HMOCK_COV) 
+  ? require('../lib-cov/mockedResponse')
+  : require('../lib/mockedResponse');
+
 var RequestExpectation = (process.env.HMOCK_COV) 
   ? require('../lib-cov/requestExpectation')
   : require('../lib/requestExpectation');
@@ -17,6 +21,29 @@ describe('MockedRequest', function() {
 	});
 
 	describe('#end()', function() {
+		it('should pass a MockedResponse instance to the callback initialized with the expected headers and status code.', function(done) {
+			var expectation = new RequestExpectation();
+
+			expectation
+				.get('http://somewhere/out/there')
+				.respond()
+				.withBody('body data')
+				.withHeader('X-TEST', 'VALUE')
+				.withStatusCode(200);
+
+			var request = new MockedRequest({ method: 'GET', url: 'http://somewhere/out/there' }, expectation, function(res) {
+				expect(res).to.be.an.instanceof(MockedResponse);
+				expect(res.statusCode).to.equal(expectation.getResponse().getStatusCode());
+				expect(res.headers).to.deep.equal(expectation.getResponse().getHeaders());
+
+				res.on('data', function(data) {
+					expect(data).to.equal(expectation.getResponse().getBody());
+
+					done();
+				});
+			}).end();
+		});
+
 		it('should throw when the http methods of expected and actual do not match', function() {
 			function shouldThrow() {
 				var expectation = new RequestExpectation().post(),
