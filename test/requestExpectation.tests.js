@@ -46,6 +46,78 @@ describe('RequestExpectation', function() {
     });
   });
 
+  describe('#del(href)', function() {
+    var href = 'http://localhost:3000',
+        e = new RequestExpectation(),
+        result = e.del(href);
+
+    it('should set the method', function() {
+      expect(e.getMethod()).to.equal('DELETE');
+    });
+
+    it('should set the href', function() {
+      expect(e.getHref()).to.equal(href);
+    });
+
+    it('should return a reference to itself', function() {
+      expect(result).to.equal(e);
+    });
+  });
+
+  describe('#put(href)', function() {
+    var href = 'http://localhost:3000',
+        e = new RequestExpectation(),
+        result = e.put(href);
+
+    it('should set the method', function() {
+      expect(e.getMethod()).to.equal('PUT');
+    });
+
+    it('should set the href', function() {
+      expect(e.getHref()).to.equal(href);
+    });
+
+    it('should return a reference to itself', function() {
+      expect(result).to.equal(e);
+    });
+  });
+
+  describe('#patch(href)', function() {
+    var href = 'http://localhost:3000',
+        e = new RequestExpectation(),
+        result = e.patch(href);
+
+    it('should set the method', function() {
+      expect(e.getMethod()).to.equal('PATCH');
+    });
+
+    it('should set the href', function() {
+      expect(e.getHref()).to.equal(href);
+    });
+
+    it('should return a reference to itself', function() {
+      expect(result).to.equal(e);
+    });
+  });
+
+  describe('#head(href)', function() {
+    var href = 'http://localhost:3000',
+        e = new RequestExpectation(),
+        result = e.head(href);
+
+    it('should set the method', function() {
+      expect(e.getMethod()).to.equal('HEAD');
+    });
+
+    it('should set the href', function() {
+      expect(e.getHref()).to.equal(href);
+    });
+
+    it('should return a reference to itself', function() {
+      expect(result).to.equal(e);
+    });
+  });
+
   describe('#withHeader(key, value)', function() {
   	var key = 'key',
   		  value = 'value',
