@@ -6,10 +6,10 @@ function MyClass() {
   var self = this;
 
   this.getSomething = function(callback) {
-  	var options = {
-	  		json: true
-  		, url: 'http://somewhere:3000/out/there'
-  	};
+    var options = {
+        json: true
+      , url: 'http://somewhere:3000/out/there'
+    };
 
     request.get(options, function(err, res, body) {
       callback(err, body);
@@ -17,13 +17,13 @@ function MyClass() {
   };
 
   this.postSomething = function(callback) {
-  	var options = {
-	  		json: { key: 'value' }
-  		, url: 'http://somewhere:3000/out/there'
+    var options = {
+        json: { key: 'value' }
+      , url: 'http://somewhere:3000/out/there'
       , headers: {
           'X-Custom': 'value'
         }
-  	};
+    };
 
     request.post(options, function(err, res, body) {
       callback(err, body);
@@ -43,7 +43,7 @@ describe('hmock.request', function() {
         .withBody(expectedResponse);
 
       new MyClass().getSomething(function(err, result) {
-      	expect(err).to.be.null;
+        expect(err).to.be.null;
         expect(result).to.deep.equal(expectedResponse);
 
         // verify http expectations
@@ -67,7 +67,7 @@ describe('hmock.request', function() {
         .withBody(expectedResponse);
 
       new MyClass().postSomething(function(err, result) {
-      	expect(err).to.be.null;
+        expect(err).to.be.null;
         expect(result).to.deep.equal(expectedResponse);
 
         // verify http expectations

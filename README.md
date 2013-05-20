@@ -16,20 +16,20 @@ Usage
 ```javascript
 describe('#getSomething', function() {
   it('should make a GET request and get a response', function(done) {
-    var expectedResponse = { ok: true };
+    var expectedResponse = { 
+      ok: true 
+    };
 
-    // setup http expectations
     hmock.expect()
       .get('http://somewhere:3000/out/there')
       .respond()
       .withBody(expectedResponse);
 
     new MyClass().getSomething(function(err, result) {
-      expect(err).to.be.null;
-      expect(result).to.deep.equal(expectedResponse);
+      assert.equal(null, err);
+      assert.deepEqual(expectedResponse, result);
 
-      // verify http expectations
-      hmock.verifyExpectations();
+      hmock.verify();
       
       done();
     });

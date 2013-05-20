@@ -25,11 +25,11 @@ function MyClass() {
   };
 
   this.getSomething = function(callback) {
-  	var options = {
-	  	  hostname: 'somewhere'
+    var options = {
+        hostname: 'somewhere'
       , port: 3000
       , path: '/out/there'
-  	};
+    };
 
     var req = http.request(options, function(res) {
       res.setEncoding('utf8');
@@ -52,7 +52,7 @@ function MyClass() {
   };
 
   this.postSomething = function(callback) {
-  	var options = {
+    var options = {
         hostname: 'somewhere'
       , port: 3000
       , path: '/out/there'
@@ -96,7 +96,7 @@ describe('hmock.http', function() {
         .withBody(expectedResponse);
 
       new MyClass().getSomething(function(err, result) {
-      	expect(err).to.be.null;
+        expect(err).to.be.null;
         expect(result).to.deep.equal(expectedResponse);
 
         // verify http expectations
@@ -120,7 +120,7 @@ describe('hmock.http', function() {
         .withBody(expectedResponse);
 
       new MyClass().postSomething(function(err, result) {
-      	expect(err).to.be.null;
+        expect(err).to.be.null;
         expect(result).to.deep.equal(expectedResponse);
 
         // verify http expectations
