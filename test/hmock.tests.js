@@ -2,7 +2,7 @@ var http = require('http')
 	, hmock = require('../index')
 	, expect = require('chai').expect;
 
-var RequestExpectation = (process.env.HMOCK_COV) 
+var RequestExpectation = (process.env._COV) 
   ? require('../lib-cov/requestExpectation')
   : require('../lib/requestExpectation');
 

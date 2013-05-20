@@ -1,6 +1,6 @@
 var expect = require('chai').expect;
 
-var ResponseExpectation = (process.env.HMOCK_COV) 
+var ResponseExpectation = (process.env._COV) 
   ? require('../lib-cov/responseExpectation')
   : require('../lib/responseExpectation');
 

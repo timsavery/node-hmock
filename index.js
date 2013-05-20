@@ -1,3 +1,3 @@
-module.exports = process.env.HMOCK_COV
+module.exports = process.env._COV
 	? require('./lib-cov/hmock')
 	: require('./lib/hmock');

@@ -9,7 +9,7 @@ test-unit:
 	@NODE_ENV=test ./node_modules/.bin/mocha --reporter $(REPORTER) --recursive
 
 test-cov: lib-cov
-	@HMOCK_COV=1 $(MAKE) test REPORTER=html-cov > coverage.html
+	@_COV=1 $(MAKE) test REPORTER=html-cov > coverage.html
 
 lib-cov: clean
 	@jscoverage lib lib-cov
