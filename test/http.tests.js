@@ -100,7 +100,7 @@ describe('hmock.http', function() {
         expect(result).to.deep.equal(expectedResponse);
 
         // verify http expectations
-        hmock.verifyExpectations();
+        hmock.verify();
 
         done();
       });
@@ -124,7 +124,7 @@ describe('hmock.http', function() {
         expect(result).to.deep.equal(expectedResponse);
 
         // verify http expectations
-        hmock.verifyExpectations();
+        hmock.verify();
 
         done();
       });
@@ -146,7 +146,7 @@ describe('hmock.http', function() {
         expect(result).to.deep.equal(expectedResponse);
 
         // verify http expectations
-        hmock.verifyExpectations();
+        hmock.verify();
 
         done();
       });

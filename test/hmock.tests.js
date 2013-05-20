@@ -26,7 +26,7 @@ describe('hmock', function() {
 			hmock.expect();
 
 			var shouldThrow = function() {
-				hmock.verifyExpectations();
+				hmock.verify();
 			};
 
 			expect(shouldThrow).to.throw(Error, /not all/i);

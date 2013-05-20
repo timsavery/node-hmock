@@ -47,7 +47,7 @@ describe('hmock.request', function() {
         expect(result).to.deep.equal(expectedResponse);
 
         // verify http expectations
-        hmock.verifyExpectations();
+        hmock.verify();
 
         done();
       });
@@ -71,7 +71,7 @@ describe('hmock.request', function() {
         expect(result).to.deep.equal(expectedResponse);
 
         // verify http expectations
-        hmock.verifyExpectations();
+        hmock.verify();
 
         done();
       });
