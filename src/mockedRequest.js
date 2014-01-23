@@ -10,6 +10,9 @@ var MockedResponse = require('./mockedResponse');
 function MockedRequest(options, expectation, callback) {
   events.EventEmitter.call(this);
 
+  var self = this;
+  var writtenData = '';
+
   if (typeof options === 'string') {
     options = url.parse(options);
   }
@@ -29,9 +32,6 @@ function MockedRequest(options, expectation, callback) {
       options.headers = origOptions.headers;
     }
   }
-
-  var self = this;
-  var writtenData = '';
 
   /**
    * Overrides ClientRequest.end to try and find a matching
@@ -74,7 +74,7 @@ function MockedRequest(options, expectation, callback) {
   /**
    * Returns the actual href of the request.
    */
-  function getActualHref() {
+  var getActualHref = function () {
     var host = options.host;
 
     if (!options.host) {
@@ -91,21 +91,23 @@ function MockedRequest(options, expectation, callback) {
     var href = protocol.concat('//').concat(host);
 
     return href.concat(path);
-  }
+  };
 
   /**
    * Gets the method of the actual request.
    */
-  function getActualMethod() {
-    return options.method ? options.method : 'GET';
-  }
+  var getActualMethod = function () {
+    return options.method 
+      ? options.method 
+      : 'GET';
+  };
 
   /**
    * Determines if the actual request satisfies the expectations.
    *
    * @api private
    */
-  function verifyExpectation() {
+  var verifyExpectation = function () {
     var aHref = getActualHref();
     var aMethod = getActualMethod();
     var aHeaders = options.headers;
@@ -164,7 +166,7 @@ function MockedRequest(options, expectation, callback) {
         throw new Error('The expected request body does not equal the actual request body. Expected: "' + JSON.stringify(eBody) + '", Actual: "' + JSON.stringify(aBody) + '"');
       }
     }
-  }
+  };
 }
 
 /**

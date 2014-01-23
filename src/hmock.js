@@ -27,7 +27,7 @@ function hmock() {
   };
 
   /**
-   * Override http.request
+   * Override https.request
    *
    * DISCLAIMER: SEE ABOVE
    */
