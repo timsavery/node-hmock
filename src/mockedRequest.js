@@ -97,9 +97,7 @@ function MockedRequest(options, expectation, callback) {
    * Gets the method of the actual request.
    */
   var getActualMethod = function () {
-    return options.method 
-      ? options.method 
-      : 'GET';
+    return options.method ? options.method : 'GET';
   };
 
   /**
