@@ -1,5 +1,5 @@
-var util = require('util'),
-    events = require('events');
+var util = require('util');
+var events = require('events');
 
 /**
  * MockedResponse
@@ -11,12 +11,12 @@ function MockedResponse(headers, statusCode) {
   
   this.statusCode = statusCode;
 
-  this.setEncoding = function() {};
+  this.setEncoding = function () {};
 
   this.connection = new events.EventEmitter();
 
-  this.resume = function() {};
-};
+  this.resume = function () {};
+}
 
 /**
  * Inherit from EventEmitter

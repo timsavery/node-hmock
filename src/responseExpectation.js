@@ -2,29 +2,29 @@
  * ResponseExpectation
  */
 function ResponseExpectation() {
-  var self = this
-    , headers = {}
-    , body
-    , statusCode;     
+  var self = this;
+  var headers = {};
+  var body;
+  var statusCode;     
 
   /**
    * Gets the body of this expectation.
    */
-  this.getBody = function() {
+  this.getBody = function () {
     return body;
   };
 
   /**
    * Gets the headers of this expectation.
    */
-  this.getHeaders = function() {
+  this.getHeaders = function () {
     return headers;
   };
 
   /**
    * Gets the status code of this expecation.
    */
-  this.getStatusCode = function() {
+  this.getStatusCode = function () {
     return statusCode;
   };
 
@@ -34,7 +34,7 @@ function ResponseExpectation() {
    * @param {Number} code
    * @api public
    */
-  this.withStatusCode = function(code) {
+  this.withStatusCode = function (code) {
     statusCode = code;
     return self;
   };
@@ -46,7 +46,7 @@ function ResponseExpectation() {
    * @param {String | Number} value
    * @api public
    */
-  this.withHeader = function(key, value) {
+  this.withHeader = function (key, value) {
     headers[key] = value;
     return self;
   };
@@ -57,7 +57,7 @@ function ResponseExpectation() {
    * @param {Object} pairs
    * @api public
    */
-  this.withHeaders = function(pairs) {
+  this.withHeaders = function (pairs) {
     for (var key in pairs) {
       headers[key] = pairs[key];
     }
@@ -70,11 +70,11 @@ function ResponseExpectation() {
    * @param {Object} data
    * @api public 
    */
-  this.withBody = function(data) {
+  this.withBody = function (data) {
     body = data;
     return self;
   };
-};
+}
 
 /**
  * Export

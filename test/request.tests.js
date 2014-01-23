@@ -1,39 +1,41 @@
-var hmock = require('../index')
-  , expect = require('chai').expect
-  , request = require('request');
+/*jshint expr: true*/
+
+var hmock = require('../src/hmock');
+var request = require('request');
+var expect = require('chai').expect;
 
 function MyClass() {
   var self = this;
 
-  this.getSomething = function(callback) {
+  this.getSomething = function (callback) {
     var options = {
-        json: true
-      , url: 'http://somewhere:3000/out/there'
+      json: true,
+      url: 'http://somewhere:3000/out/there'
     };
 
-    request.get(options, function(err, res, body) {
+    request.get(options, function (err, res, body) {
       callback(err, body);
     });
   };
 
-  this.postSomething = function(callback) {
+  this.postSomething = function (callback) {
     var options = {
-        json: { key: 'value' }
-      , url: 'http://somewhere:3000/out/there'
-      , headers: {
-          'X-Custom': 'value'
-        }
+      json: { key: 'value' },
+      url: 'http://somewhere:3000/out/there',
+      headers: {
+        'X-Custom': 'value'
+      }
     };
 
-    request.post(options, function(err, res, body) {
+    request.post(options, function (err, res, body) {
       callback(err, body);
     });
   };
-};
+}
 
-describe('hmock.request', function() {
-  describe('#getSomething', function() {
-    it('should make a GET request and get a response', function(done) {
+describe('hmock.request', function () {
+  describe('#getSomething', function () {
+    it('should make a GET request and get a response', function (done) {
       var expectedResponse = { ok: true };
 
       // setup http expectations
@@ -42,7 +44,7 @@ describe('hmock.request', function() {
         .respond()
         .withBody(expectedResponse);
 
-      new MyClass().getSomething(function(err, result) {
+      new MyClass().getSomething(function (err, result) {
         expect(err).to.be.null;
         expect(result).to.deep.equal(expectedResponse);
 
@@ -54,8 +56,8 @@ describe('hmock.request', function() {
     });
   });
 
-  describe('#postSomething', function() {
-    it('should make a POST request and get a response', function(done) {
+  describe('#postSomething', function () {
+    it('should make a POST request and get a response', function (done) {
       var expectedResponse = { ok: true };
 
       // setup http expectations
@@ -66,7 +68,7 @@ describe('hmock.request', function() {
         .respond()
         .withBody(expectedResponse);
 
-      new MyClass().postSomething(function(err, result) {
+      new MyClass().postSomething(function (err, result) {
         expect(err).to.be.null;
         expect(result).to.deep.equal(expectedResponse);
 

@@ -1,30 +1,32 @@
-var https = require('https')
-  , hmock = require('../index')
-  , expect = require('chai').expect;
+/*jshint expr: true*/
+
+var https = require('https');
+var hmock = require('../src/hmock');
+var expect = require('chai').expect;
 
 function MyClass() {
-  this.getSomethingByUrlString = function(callback) {
-    var req = https.request('https://somewhere:3000/out/there', function(res) {
+  this.getSomethingByUrlString = function (callback) {
+    var req = https.request('https://somewhere:3000/out/there', function (res) {
       res.setEncoding('utf8');
 
       var data = '';
-      res.on('data', function(chunk) {
+      res.on('data', function (chunk) {
         data += chunk;
       });
 
-      res.on('end', function() {
+      res.on('end', function () {
         callback(null, JSON.parse(data));
       });
     });
 
-    req.on('error', function(data) {
+    req.on('error', function (data) {
       callback(data);
     });
 
     req.end();
   };
 
-  this.getSomething = function(callback) {
+  this.getSomething = function (callback) {
     var options = {
       protocol: 'https',
       hostname: 'somewhere',
@@ -32,27 +34,27 @@ function MyClass() {
       path: '/out/there'
     };
 
-    var req = https.request(options, function(res) {
+    var req = https.request(options, function (res) {
       res.setEncoding('utf8');
 
       var data = '';
-      res.on('data', function(chunk) {
+      res.on('data', function (chunk) {
         data += chunk;
       });
 
-      res.on('end', function() {
+      res.on('end', function () {
         callback(null, JSON.parse(data));
       });
     });
 
-    req.on('error', function(data) {
+    req.on('error', function (data) {
       callback(data);
     });
 
     req.end();
   };
 
-  this.postSomething = function(callback) {
+  this.postSomething = function (callback) {
     var options = {
       protocol: 'https',
       hostname: 'somewhere',
@@ -64,31 +66,31 @@ function MyClass() {
       }
     };
 
-    var req = https.request(options, function(res) {
+    var req = https.request(options, function (res) {
       res.setEncoding('utf8');
 
       var data = '';
-      res.on('data', function(chunk) {
+      res.on('data', function (chunk) {
         data += chunk;
       });
 
-      res.on('end', function() {
+      res.on('end', function () {
         callback(null, JSON.parse(data));
       });
     });
 
-    req.on('error', function(data) {
+    req.on('error', function (data) {
       callback(data);
     });
 
     req.write(JSON.stringify({ key: 'value' }));
     req.end();
   };
-};
+}
 
-describe('hmock.https', function() {
-  describe('#getSomething', function() {
-    it('should make a GET request and get a response', function(done) {
+describe('hmock.https', function () {
+  describe('#getSomething', function () {
+    it('should make a GET request and get a response', function (done) {
       var expectedResponse = { ok: true };
 
       // setup https expectations
@@ -97,7 +99,7 @@ describe('hmock.https', function() {
         .respond()
         .withBody(expectedResponse);
 
-      new MyClass().getSomething(function(err, result) {
+      new MyClass().getSomething(function (err, result) {
         expect(err).to.be.null;
         expect(result).to.deep.equal(expectedResponse);
 
@@ -109,8 +111,8 @@ describe('hmock.https', function() {
     });
   });
 
-  describe('#postSomething', function() {
-    it('should make a POST request and get a response', function(done) {
+  describe('#postSomething', function () {
+    it('should make a POST request and get a response', function (done) {
       var expectedResponse = { ok: true };
 
       // setup https expectations
@@ -121,7 +123,7 @@ describe('hmock.https', function() {
         .respond()
         .withBody(expectedResponse);
 
-      new MyClass().postSomething(function(err, result) {
+      new MyClass().postSomething(function (err, result) {
         expect(err).to.be.null;
         expect(result).to.deep.equal(expectedResponse);
 
@@ -133,8 +135,8 @@ describe('hmock.https', function() {
     });
   });
 
-  describe('#getSomethingByUrlString', function() {
-    it('should make a GET request and get a response', function(done) {
+  describe('#getSomethingByUrlString', function () {
+    it('should make a GET request and get a response', function (done) {
       var expectedResponse = { ok: true };
 
       // setup https expectations
@@ -143,7 +145,7 @@ describe('hmock.https', function() {
         .respond()
         .withBody(expectedResponse);
 
-      new MyClass().getSomethingByUrlString(function(err, result) {
+      new MyClass().getSomethingByUrlString(function (err, result) {
         expect(err).to.be.null;
         expect(result).to.deep.equal(expectedResponse);
 

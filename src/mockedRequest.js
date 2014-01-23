@@ -1,8 +1,8 @@
-var url = require('url'),
-    util = require('util'),
-    events = require('events')
-    deepEqual = require('deep-equal'),
-    MockedResponse = require('./mockedResponse');
+var url = require('url');
+var util = require('util');
+var events = require('events');
+var deepEqual = require('deep-equal');
+var MockedResponse = require('./mockedResponse');
 
 /**
  * MockedRequest
@@ -30,10 +30,8 @@ function MockedRequest(options, expectation, callback) {
     }
   }
 
-  var self = this,
-      writtenData = '',
-      options = options,
-      expectation = expectation;
+  var self = this;
+  var writtenData = '';
 
   /**
    * Overrides ClientRequest.end to try and find a matching
@@ -41,12 +39,12 @@ function MockedRequest(options, expectation, callback) {
    *
    * @api public
    */
-  this.end = function() {
+  this.end = function () {
     verifyExpectation();
 
-    var eBody = expectation.getResponse().getBody(),
-        eHeaders = expectation.getResponse().getHeaders(),
-        eStatusCode = expectation.getResponse().getStatusCode();
+    var eBody = expectation.getResponse().getBody();
+    var eHeaders = expectation.getResponse().getHeaders();
+    var eStatusCode = expectation.getResponse().getStatusCode();
 
     var mResponse = new MockedResponse(eHeaders, eStatusCode);
 
@@ -69,7 +67,7 @@ function MockedRequest(options, expectation, callback) {
    * @param {String} data
    * @api public
    */
-  this.write = function(data) {
+  this.write = function (data) {
     writtenData += data;
   };
 
@@ -83,8 +81,8 @@ function MockedRequest(options, expectation, callback) {
       host = options.hostname + (options.port ? ':' + options.port : '');
     }
 
-    var path = options.path || '/',
-        protocol = options.protocol || 'http:';
+    var path = options.path || '/';
+    var protocol = options.protocol || 'http:';
 
     if (protocol[protocol.length - 1] !== ':') {
       protocol += ':';
@@ -93,14 +91,14 @@ function MockedRequest(options, expectation, callback) {
     var href = protocol.concat('//').concat(host);
 
     return href.concat(path);
-  };
+  }
 
   /**
    * Gets the method of the actual request.
    */
   function getActualMethod() {
     return options.method ? options.method : 'GET';
-  };
+  }
 
   /**
    * Determines if the actual request satisfies the expectations.
@@ -108,19 +106,19 @@ function MockedRequest(options, expectation, callback) {
    * @api private
    */
   function verifyExpectation() {
-    var aHref = getActualHref(),
-        aMethod = getActualMethod(),
-        aHeaders = options.headers,
-        aBody = writtenData;
+    var aHref = getActualHref();
+    var aMethod = getActualMethod();
+    var aHeaders = options.headers;
+    var aBody = writtenData;
 
-    var eBody = expectation.getBody(),
-        eHeaders = expectation.getHeaders(),
-        eHref = expectation.getHref(),
-        eMethod = expectation.getMethod();
+    var eBody = expectation.getBody();
+    var eHeaders = expectation.getHeaders();
+    var eHref = expectation.getHref();
+    var eMethod = expectation.getMethod();
 
     // validate methods
     if (eMethod.toUpperCase() !== aMethod.toUpperCase()) {
-      throw new Error('Expected request method to be "' + eMethod + '", but was "' + aMethod + '"')
+      throw new Error('Expected request method to be "' + eMethod + '", but was "' + aMethod + '"');
     }
 
     // validate hrefs
@@ -166,8 +164,8 @@ function MockedRequest(options, expectation, callback) {
         throw new Error('The expected request body does not equal the actual request body. Expected: "' + JSON.stringify(eBody) + '", Actual: "' + JSON.stringify(aBody) + '"');
       }
     }
-  };
-};
+  }
+}
 
 /**
  * Inherits from EventEmitter

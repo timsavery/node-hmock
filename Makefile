@@ -1,19 +1,13 @@
+test: lint
+	./node_modules/.bin/mocha --recursive
 
-REPORTER= spec
-
-check: test
-
-test: test-unit
-
-test-unit:
-	@NODE_ENV=test ./node_modules/.bin/mocha --reporter $(REPORTER) --recursive
-
-test-cov: lib-cov
-	@_COV=1 $(MAKE) test REPORTER=html-cov > coverage.html
-
-lib-cov: clean
-	@jscoverage lib lib-cov
-
-clean:
+test-cov: lint
 	rm -f coverage.html
-	rm -fr lib-cov
+	./node_modules/.bin/mocha --recursive --require blanket --reporter html-cov > coverage.html
+	open coverage.html	
+
+lint:
+	./node_modules/.bin/jshint test/*.js 
+	./node_modules/.bin/jshint src/*.js
+
+.PHONY: test lint

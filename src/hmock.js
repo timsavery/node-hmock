@@ -1,7 +1,7 @@
-var http = require('http'),
-    https = require('https'),
-    MockedRequest = require('./mockedRequest'),
-    RequestExpectation = require('./requestExpectation');
+var http = require('http');
+var https = require('https');
+var MockedRequest = require('./mockedRequest');
+var RequestExpectation = require('./requestExpectation');
 
 /**
  * hmock
@@ -22,7 +22,7 @@ function hmock() {
    *             this gets the job done and it is only meant 
    *             to be used during unit testing anyway.
    */
-  http.request = function(options, callback) {
+  http.request = function (options, callback) {
     return new MockedRequest(options, expectations.shift(), callback);
   };
 
@@ -31,16 +31,16 @@ function hmock() {
    *
    * DISCLAIMER: SEE ABOVE
    */
-  https.request = function(options, callback) {
+  https.request = function (options, callback) {
     return new MockedRequest(options, expectations.shift(), callback);
-  }
+  };
   
   /**
    * Creates and returns a new expectation to be configured.
    *
    * @api public
    */
-  this.expect = function() {
+  this.expect = function () {
     var e = new RequestExpectation();
 
     expectations.push(e);
@@ -53,7 +53,7 @@ function hmock() {
    *
    * @api public
    */
-  this.verify = function() {
+  this.verify = function () {
     var verified = expectations.length === 0;
 
     expectations = [];
@@ -62,7 +62,7 @@ function hmock() {
       throw new Error('Not all expectations were met during the test.');
     }
   };
-};
+}
 
 /**
  * Expose
