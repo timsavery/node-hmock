@@ -22,7 +22,7 @@ function hmock(override) {
    *             this gets the job done and it is only meant
    *             to be used during unit testing anyway.
    */
-  if(!override){
+  if(override !== false){
     http.request = function (options, callback) {
       return new MockedRequest(options, expectations.shift(), callback);
     };
@@ -33,7 +33,7 @@ function hmock(override) {
    *
    * DISCLAIMER: SEE ABOVE
    */
-  if(!override){
+  if(override !== false){
     https.request = function (options, callback) {
       return new MockedRequest(options, expectations.shift(), callback);
     };
