@@ -1,2 +1,2 @@
-hmock = require('../hmock_private');
+hmock = require('src/hmock_private');
 module.exports = new hmock(false);
