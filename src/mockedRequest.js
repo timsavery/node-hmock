@@ -82,7 +82,7 @@ function MockedRequest(options, expectation, callback) {
     }
 
     var path = options.path || '/';
-    var protocol = options.protocol || 'http:';
+    var protocol = options.protocol || (options.port === 443 ? 'https:' : 'http:');
 
     if (protocol[protocol.length - 1] !== ':') {
       protocol += ':';
