@@ -88,16 +88,14 @@ function MockedRequest(options, expectation, callback) {
       protocol += ':';
     }
 
-    var href = protocol.concat('//').concat(host);
+    var href = (options.method ? options.method : 'GET').toUpperCase();
+    href += ' ';
+    href += protocol;
+    href += '//';
+    href += host;
+    href += path;
 
-    return href.concat(path);
-  };
-
-  /**
-   * Gets the method of the actual request.
-   */
-  var getActualMethod = function () {
-    return options.method ? options.method : 'GET';
+    return href;
   };
 
   /**
@@ -107,23 +105,16 @@ function MockedRequest(options, expectation, callback) {
    */
   var verifyExpectation = function () {
     var aHref = getActualHref();
-    var aMethod = getActualMethod();
     var aHeaders = options.headers;
     var aBody = writtenData;
 
-    var eBody = expectation.getBody();
-    var eHeaders = expectation.getHeaders();
     var eHref = expectation.getHref();
-    var eMethod = expectation.getMethod();
-
+    var eHeaders = expectation.getHeaders();
+    var eBody = expectation.getBody();
+    
     // validate methods
-    if (eMethod.toUpperCase() !== aMethod.toUpperCase()) {
-      throw new Error('Expected request method to be "' + eMethod + '", but was "' + aMethod + '"');
-    }
-
-    // validate hrefs
-    if (eHref.toUpperCase() !== aHref.toUpperCase()) {
-      throw new Error('Expected url to be "' + eHref + '", but was "' + aHref + '"');
+    if (eHref !== aHref) {
+      throw new Error('Expected "' + eHref + '", but was "' + aHref + '"');
     }
 
     // check the case where expected headers were defined

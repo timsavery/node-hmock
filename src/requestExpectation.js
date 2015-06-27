@@ -4,16 +4,13 @@ var ResponseExpectation = require('./responseExpectation');
  * RequestExpectation
  */
 function RequestExpectation() {
-  var self = this,
-      method,
-      headers = {},
-      body,
-      href,
-      response = new ResponseExpectation();
 
-  this.getMethod = function () {
-    return method;
-  };
+  var self = this;
+
+  var headers = {};
+  var body;
+  var href;
+  var response = new ResponseExpectation();
 
   this.getHref = function () {
     return href;
@@ -32,38 +29,32 @@ function RequestExpectation() {
   };
 
   this.post = function (url) {
-    href = url;
-    method = 'POST';
+    href = 'POST ' + url;
     return self;
   };
 
   this.get = function (url) {
-    href = url;
-    method = 'GET';
+    href = 'GET ' + url;
     return self;
   };
 
   this.del = function (url) {
-    href = url;
-    method = 'DELETE';
+    href = 'DELETE ' + url;
     return self;
   };
 
   this.put = function (url) {
-    href = url;
-    method = 'PUT';
+    href = 'PUT ' + url;
     return self;
   };
 
   this.patch = function (url) {
-    href = url;
-    method = 'PATCH';
+    href = 'PATCH ' + url;
     return self;
   };
 
   this.head = function (url) {
-    href = url;
-    method = 'HEAD';
+    href = 'HEAD ' + url;
     return self;
   };
 
@@ -87,6 +78,7 @@ function RequestExpectation() {
   this.respond = function () {
     return response;
   };
+
 }
 
 /**

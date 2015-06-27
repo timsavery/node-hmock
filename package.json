@@ -1,7 +1,7 @@
 {
   "name": "hmock",
   "description": "Very simple http request/response mocking.",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "author": "Tim Savery <tim.savery+hmock@gmail.com>",
   "repository": {
     "type": "git",
