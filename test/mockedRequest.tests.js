@@ -38,17 +38,6 @@ describe('MockedRequest', function () {
       }).end();
     });
 
-    it('should throw when the http methods of expected and actual do not match', function () {
-      var shouldThrow = function () {
-        var expectation = new RequestExpectation().post(),
-            request = new MockedRequest({ method: 'GET' }, expectation);
-
-        request.end();
-      };
-
-      expect(shouldThrow).to.throw(Error, /method/i);
-    });
-
     it('should throw when the expected url does not match the actual url.', function () {
       var shouldThrow = function () {
         var expectation = new RequestExpectation().get('http://somewhere/out/there'),
@@ -57,7 +46,7 @@ describe('MockedRequest', function () {
         request.end();
       };
 
-      expect(shouldThrow).to.throw(Error, /url/i);
+      expect(shouldThrow).to.throw(Error);
     });
 
     it('should throw when expected headers are defined, but the actual request contains no headers', function () {

@@ -11,12 +11,8 @@ describe('RequestExpectation', function () {
     var e = new RequestExpectation();
     var result = e.get(href);
 
-    it('should set the method', function () {
-      expect(e.getMethod()).to.equal('GET');
-    });
-
     it('should set the href', function () {
-      expect(e.getHref()).to.equal(href);
+      expect(e.getHref()).to.equal('GET ' + href);
     });
 
     it('should return a reference to itself', function () {
@@ -29,12 +25,8 @@ describe('RequestExpectation', function () {
     var e = new RequestExpectation();
     var result = e.post(href);
 
-    it('should set the method', function () {
-      expect(e.getMethod()).to.equal('POST');
-    });
-
     it('should set the href', function () {
-      expect(e.getHref()).to.equal(href);
+      expect(e.getHref()).to.equal('POST ' + href);
     });
 
     it('should return a reference to itself', function () {
@@ -47,12 +39,8 @@ describe('RequestExpectation', function () {
     var e = new RequestExpectation();
     var result = e.del(href);
 
-    it('should set the method', function () {
-      expect(e.getMethod()).to.equal('DELETE');
-    });
-
     it('should set the href', function () {
-      expect(e.getHref()).to.equal(href);
+      expect(e.getHref()).to.equal('DELETE ' + href);
     });
 
     it('should return a reference to itself', function () {
@@ -65,12 +53,8 @@ describe('RequestExpectation', function () {
     var e = new RequestExpectation();
     var result = e.put(href);
 
-    it('should set the method', function () {
-      expect(e.getMethod()).to.equal('PUT');
-    });
-
     it('should set the href', function () {
-      expect(e.getHref()).to.equal(href);
+      expect(e.getHref()).to.equal('PUT ' + href);
     });
 
     it('should return a reference to itself', function () {
@@ -83,12 +67,8 @@ describe('RequestExpectation', function () {
     var e = new RequestExpectation();
     var result = e.patch(href);
 
-    it('should set the method', function () {
-      expect(e.getMethod()).to.equal('PATCH');
-    });
-
     it('should set the href', function () {
-      expect(e.getHref()).to.equal(href);
+      expect(e.getHref()).to.equal('PATCH ' + href);
     });
 
     it('should return a reference to itself', function () {
@@ -101,12 +81,8 @@ describe('RequestExpectation', function () {
     var e = new RequestExpectation();
     var result = e.head(href);
 
-    it('should set the method', function () {
-      expect(e.getMethod()).to.equal('HEAD');
-    });
-
     it('should set the href', function () {
-      expect(e.getHref()).to.equal(href);
+      expect(e.getHref()).to.equal('HEAD ' + href);
     });
 
     it('should return a reference to itself', function () {
