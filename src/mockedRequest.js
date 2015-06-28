@@ -148,11 +148,11 @@ function MockedRequest(options, expectation, callback) {
       try {
         aBody = JSON.parse(aBody);
       } catch (err) {
-        throw new Error('The expected request body was an object, but the actual request body was invalid JSON. Expected: "' + JSON.stringify(eBody) + '", Actual: "' + aBody + '"');
+        throw new Error('The expected request body was an object, but the actual request body was invalid JSON.\n\nExpected: "' + JSON.stringify(eBody, null, 2) + '"\n\nActual: "' + aBody + '"');
       }
 
       if (!deepEqual(aBody, eBody)) {
-        throw new Error('The expected request body does not equal the actual request body. Expected: "' + JSON.stringify(eBody) + '", Actual: "' + JSON.stringify(aBody) + '"');
+        throw new Error('The expected request body does not equal the actual request body.\n\nExpected: "' + JSON.stringify(eBody, null, 2) + '"\n\nActual: "' + JSON.stringify(aBody, null, 2) + '"');
       }
     }
   };
