@@ -38,7 +38,7 @@ function hmock() {
     https.request = function mockRequest(options, callback) {
       return new MockedRequest(options, expectations.shift(), callback);
     };
-  }
+  };
   
   /**
    * Creates and returns a new expectation to be configured.
