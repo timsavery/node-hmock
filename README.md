@@ -15,6 +15,13 @@ Usage
 
 ```javascript
 describe('#getSomething', function() {
+  
+  // Mocks the request objects in http and https.
+  before(hmock.mock);
+  
+  // Restores the original request objects to http and https.
+  after(hmock.restore);
+  
   it('should make a GET request and get a response', function(done) {
     var expectedResponse = { 
       ok: true 

@@ -87,6 +87,11 @@ function MyClass() {
 }
 
 describe('hmock.http', function () {
+  
+  before(hmock.mock);
+  
+  after(hmock.restore);
+  
   describe('#getSomething', function () {
     it('should make a GET request and get a response', function (done) {
       var expectedResponse = { ok: true };
